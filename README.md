@@ -1,3 +1,5 @@
+# Optimization of AD Miner using APOC
+
 <div align="center">
 
 <img src="doc/img/ADMiner-Logo-Color.png" alt="AD_Miner" width="50%">
