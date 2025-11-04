@@ -933,6 +933,7 @@ class Neo4j:
             logger.print_magenta("GDS plugin not installed.")
             logger.print_magenta("Not using exploitability for paths computation.")
 
+    '''
     @staticmethod
     def check_unkown_relations(self, result):
         if self.gds:
@@ -965,6 +966,97 @@ class Neo4j:
                         q += str(round(i / 1000, 3))
                         tx.run(q)
                         self.gds_cost_type_table[i] = r
+
+    '''
+
+    @staticmethod
+    def check_unkown_relations(self, result):
+        if self.gds:
+            logger.print_warning("Setting exploitability ratings to edges using APOC batching.")
+            
+            # Step 1: Set cost for known relationship types using APOC batching
+            # This matches the original: MATCH ()-[r:RelType]->() SET r.cost=value
+            with self.driver.session() as session:
+                for r in self.edges_rating.keys():
+                    cost = self.edges_rating[r]
+                    
+                    # Use APOC to batch update relationships
+                    # Original query was: MATCH ()-[r:RelType]->() SET r.cost=cost
+                    query = f"""
+                    CALL apoc.periodic.iterate(
+                      "MATCH ()-[rel:{r}]->() RETURN rel",
+                      "SET rel.cost = {cost}",
+                      {{batchSize: 50000, parallel: false, iterateList: true}}
+                    )
+                    YIELD batches, total
+                    RETURN batches, total
+                    """
+                    
+                    try:
+                        result_apoc = session.run(query)
+                        summary = result_apoc.single()
+                        if summary:
+                            logger.print_success(f"Set cost={cost} for {summary['total']} {r} relationships in {summary['batches']} batches")
+                    except Exception as e:
+                        logger.print_error(f"Error setting cost for {r}: {str(e)}")
+                        # Fallback to original non-batched query if APOC fails
+                        logger.print_warning(f"Falling back to direct query for {r}")
+                        try:
+                            q = "MATCH ()-[r:"
+                            q += str(r)
+                            q += "]->() SET r.cost="
+                            q += str(cost)
+                            session.run(q)
+                        except Exception as e2:
+                            logger.print_error(f"Direct query also failed for {r}: {str(e2)}")
+
+            # Step 2: Handle unknown relationship types with fractional costs
+            # Original logic: SET r.cost = r.cost + round(i/1000, 3)
+            relation_list = [r[0] for r in result]
+            
+            with self.driver.session() as session:
+                for i in range(len(relation_list)):
+                    r = relation_list[i]
+                    
+                    if r not in self.edges_rating.keys():
+                        logger.print_warning(
+                            r + " relation type is unknown and will use default exploitability rating."
+                        )
+                    
+                    # IMPORTANT: Keep original calculation method
+                    # Original: SET r.cost=r.cost + round(i/1000, 3)
+                    fractional_cost = round(i / 1000, 3)
+                    
+                    # Use APOC for batching
+                    query = f"""
+                    CALL apoc.periodic.iterate(
+                      "MATCH ()-[rel:{r}]->() RETURN rel",
+                      "SET rel.cost = rel.cost + {fractional_cost}",
+                      {{batchSize: 50000, parallel: false, iterateList: true}}
+                    )
+                    YIELD batches, total
+                    RETURN batches, total
+                    """
+                    
+                    try:
+                        result_apoc = session.run(query)
+                        summary = result_apoc.single()
+                        if summary and summary['total'] > 0:
+                            logger.print_success(f"Added {fractional_cost} to {summary['total']} {r} relationships")
+                    except Exception as e:
+                        logger.print_error(f"Error adding fractional cost for {r}: {str(e)}")
+                        # Fallback to original non-batched query
+                        try:
+                            q = "MATCH ()-[r:"
+                            q += str(r)
+                            q += "]->() SET r.cost=r.cost + "
+                            q += str(fractional_cost)
+                            session.run(q)
+                        except Exception as e2:
+                            logger.print_error(f"Direct query also failed for {r}: {str(e2)}")
+                    
+                    # IMPORTANT: Keep original GDS cost type table assignment
+                    self.gds_cost_type_table[i] = r
 
     def compute_common_cache(self, requests_results):
         """
