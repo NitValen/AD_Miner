@@ -6,7 +6,6 @@ of safe, whitelisted classes to prevent arbitrary code execution attacks.
 """
 
 import pickle
-import io
 
 # Whitelist of allowed modules and classes for deserialization
 SAFE_MODULES = {
@@ -52,19 +51,3 @@ def safe_load(file):
         pickle.UnpicklingError: If an unauthorized class is encountered.
     """
     return RestrictedUnpickler(file).load()
-
-
-def safe_loads(data):
-    """
-    Safely load pickle data from bytes using the RestrictedUnpickler.
-
-    Args:
-        data: Bytes containing pickled data.
-
-    Returns:
-        The deserialized Python object.
-
-    Raises:
-        pickle.UnpicklingError: If an unauthorized class is encountered.
-    """
-    return RestrictedUnpickler(io.BytesIO(data)).load()
