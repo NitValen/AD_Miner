@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.graph_class import Graph
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import presence_of
 
 from urllib.parse import quote
@@ -117,9 +117,9 @@ class can_dcsync(Control):
             sortClass = str(len(paths_left)).zfill(6)
             data.append(
                 {
-                    "domain": '<i class="bi bi-globe2"></i> ' + n.domain,
-                    "type": type_icon + " " + n.labels,
-                    "name": name_icon + " " + n.name,
+                    "domain": '<i class="bi bi-globe2"></i> ' + escape_html(n.domain),
+                    "type": type_icon + " " + escape_html(n.labels),
+                    "name": name_icon + " " + escape_html(n.name),
                     "path to account": grid_data_stringify(
                         {
                             "link": "path_to_%s_with_dcsync.html" % quote(str(n.name)),

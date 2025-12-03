@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import days_format
+from ad_miner.sources.modules.utils import days_format, escape_html
 from ad_miner.sources.modules.common_analysis import percentage_superior
 
 
@@ -49,7 +49,7 @@ class computers_last_connexion(Control):
         for c in self.computers_not_connected_since_60:
             data.append(
                 {
-                    "name": '<i class="bi bi-pc-display"></i> ' + c["name"],
+                    "name": '<i class="bi bi-pc-display"></i> ' + escape_html(c["name"]),
                     "Last logon": days_format(c["days"]),
                     "Last password set": days_format(c["pwdlastset"]),
                     "Enabled": str(c["enabled"]),

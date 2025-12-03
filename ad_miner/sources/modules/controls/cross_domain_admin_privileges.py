@@ -2,7 +2,7 @@ from ad_miner.sources.modules.controls import Control
 from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import createGraphPage
 
 import copy
@@ -95,7 +95,7 @@ class cross_domain_admin_privileges(Control):
             user = key
             tmp_data = {}
 
-            tmp_data["user"] = '<i class="bi bi-person-fill"></i> ' + user
+            tmp_data["user"] = '<i class="bi bi-person-fill"></i> ' + escape_html(user)
             grid_list_local_admin_targets_data = []
             grid_list_domain_admin_targets_data = []
             # create the grid
@@ -114,7 +114,7 @@ class cross_domain_admin_privileges(Control):
                 local_distinct_ends = []
                 for domain in data_local_admins[key]:
                     list_local_admin_targets_tmp_data = {
-                        "domain": '<i class="bi bi-globe2"></i> ' + domain
+                        "domain": '<i class="bi bi-globe2"></i> ' + escape_html(domain)
                     }
                     numberofpaths = 0
                     for path in data_local_admins[key][domain]:
@@ -194,7 +194,7 @@ class cross_domain_admin_privileges(Control):
                 domain_distinct_ends = []
                 for domain in data_domain_admins[key]:
                     list_domain_admin_targets_tmp_data = {
-                        "domain": '<i class="bi bi-globe2"></i> ' + domain
+                        "domain": '<i class="bi bi-globe2"></i> ' + escape_html(domain)
                     }
 
                     for path in data_domain_admins[key][domain]:

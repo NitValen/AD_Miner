@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
-from ad_miner.sources.modules.utils import days_format
+from ad_miner.sources.modules.utils import days_format, escape_html
 from ad_miner.sources.modules.common_analysis import presence_of
 
 
@@ -41,8 +41,8 @@ class users_password_not_required(Control):
         grid_data = []
         for dic in self.users_password_not_required:
             tmp_data = {}
-            tmp_data["Domain"] = '<i class="bi bi-globe2"></i> ' + dic["domain"]
-            tmp_data["User"] = '<i class="bi bi-person-fill"></i> ' + dic["user"]
+            tmp_data["Domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(dic["domain"])
+            tmp_data["User"] = '<i class="bi bi-person-fill"></i> ' + escape_html(dic["user"])
             tmp_data["Password last change"] = days_format(dic["pwdlastset"])
             tmp_data["Last logon"] = days_format(dic["lastlogon"])
             grid_data.append(tmp_data)

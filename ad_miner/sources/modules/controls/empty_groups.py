@@ -3,6 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -35,7 +36,7 @@ class empty_groups(Control):
         headers = ["Empty group", "Full Reference"]
 
         for d in self.empty_groups:
-            d["Empty group"] = '<i class="bi bi-people-fill"></i> ' + d["Empty group"]
+            d["Empty group"] = '<i class="bi bi-people-fill"></i> ' + escape_html(d["Empty group"])
 
         grid.setheaders(headers)
         grid.setData(self.empty_groups)

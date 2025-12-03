@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify, days_format
+from ad_miner.sources.modules.utils import grid_data_stringify, days_format, escape_html
 from ad_miner.sources.modules.common_analysis import containsDAs
 
 from urllib.parse import quote
@@ -88,17 +88,17 @@ class kerberoastables(Control):
             if self.users_kerberoastable_users[elem]["is_Domain_Admin"] == True:
                 self.users_kerberoastable_users[elem]["name"] = (
                     '<i class="bi bi-gem" title="This user is domain admin"></i> '
-                    + self.users_kerberoastable_users[elem]["name"]
+                    + escape_html(self.users_kerberoastable_users[elem]["name"])
                 )
             else:
                 self.users_kerberoastable_users[elem]["name"] = (
                     '<i class="bi bi-person-fill"></i> '
-                    + self.users_kerberoastable_users[elem]["name"]
+                    + escape_html(self.users_kerberoastable_users[elem]["name"])
                 )
 
         data = []
         for dict in self.users_kerberoastable_users:
-            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + dict["domain"]}
+            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + escape_html(dict["domain"])}
             tmp_data["name"] = dict["name"]
             tmp_data["Last password change"] = days_format(dict["pass_last_change"])
             tmp_data["Account Creation Date"] = days_format(dict["accountCreationDate"])

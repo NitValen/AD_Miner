@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules import logger
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import presence_of, createGraphPage
 
 from urllib.parse import quote
@@ -167,7 +167,7 @@ class graph_path_objects_to_da(Control):
             domain = domain[0]
             tmp_data = {}
 
-            tmp_data[headers[0]] = '<i class="bi bi-globe2"></i> ' + domain
+            tmp_data[headers[0]] = '<i class="bi bi-globe2"></i> ' + escape_html(domain)
 
             count = count_object_from_path(self.users_to_domain[domain])
             sortClass = str(count).zfill(

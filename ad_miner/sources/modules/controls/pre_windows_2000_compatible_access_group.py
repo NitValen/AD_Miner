@@ -4,6 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules import generic_formating
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -56,12 +57,12 @@ class pre_windows_2000_compatible_access_group(Control):
         data = []
 
         for domain, account_name, objectid, type_list in sorted_list:
-            tmp_data = {"Domain": '<i class="bi bi-globe2"></i> ' + domain}
+            tmp_data = {"Domain": '<i class="bi bi-globe2"></i> ' + escape_html(domain)}
 
             type_clean = generic_formating.clean_label(type_list)
 
             tmp_data["Name"] = (
-                f"{generic_formating.get_label_icon(type_clean)} {account_name}"
+                f"{generic_formating.get_label_icon(type_clean)} {escape_html(account_name)}"
             )
 
             tmp_data["Rating"] = (

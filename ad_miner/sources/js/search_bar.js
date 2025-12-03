@@ -2,6 +2,18 @@
 Controls the search bar on the main page.
 */
 
+// HTML escape function to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Escape special regex characters
+function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // Hide and display the search bar
 function toggleSearch() {
     const searchBarDiv = document.getElementById("search-bar-div");
@@ -47,11 +59,14 @@ function updateDropdown(filteredControls) {
         dropdownItem.classList.add("dropdown-item");
         dropdownItem.href = control.link;
 
-        // Highlight search input in result
+        // Highlight search input in result (escape HTML first to prevent XSS)
         const searchTerm = searchBar.value.toLowerCase().trim();
-        var regex = new RegExp(searchTerm, 'gi');
-        var name = control.name.replace(regex, '<span class="search-highlight">$&</span>');
-        var title = control.title.replace(regex, '<span class="search-highlight">$&</span>');
+        var escapedSearchTerm = escapeRegex(searchTerm);
+        var regex = new RegExp(escapedSearchTerm, 'gi');
+        var escapedName = escapeHtml(control.name);
+        var escapedTitle = escapeHtml(control.title);
+        var name = escapedName.replace(regex, '<span class="search-highlight">$&</span>');
+        var title = escapedTitle.replace(regex, '<span class="search-highlight">$&</span>');
 
         dropdownItem.innerHTML = `
         <div class="container">

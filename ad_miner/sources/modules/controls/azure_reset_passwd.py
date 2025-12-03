@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import presence_of
 from hashlib import md5
 
@@ -65,7 +65,7 @@ class azure_reset_passwd(Control):
 
             data.append(
                 {
-                    "Privileged user": '<i class="bi bi-person-fill"></i> ' + user,
+                    "Privileged user": '<i class="bi bi-person-fill"></i> ' + escape_html(user),
                     "Passwords that can be reset": grid_data_stringify(
                         {
                             "link": f"passwords_reset_{hash}.html",

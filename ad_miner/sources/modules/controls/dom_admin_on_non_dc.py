@@ -2,7 +2,7 @@ from ad_miner.sources.modules.controls import Control
 from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 
 from ad_miner.sources.modules.common_analysis import createGraphPage, presence_of
 
@@ -57,8 +57,8 @@ class dom_admin_on_non_dc(Control):
         data = []
         for da in dico.keys():
             tmp = {}
-            tmp["Domain"] = '<i class="bi bi-globe2"></i> ' + dico[da]["domain"]
-            tmp["Domain Admin"] = '<i class="bi bi-gem"></i> ' + da
+            tmp["Domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(dico[da]["domain"])
+            tmp["Domain Admin"] = '<i class="bi bi-gem"></i> ' + escape_html(da)
             nb_computers = len(dico[da]["computers"])
             tmp["Computers"] = grid_data_stringify(
                 {
@@ -103,7 +103,7 @@ class dom_admin_on_non_dc(Control):
             )
             computer_list_grid.setheaders(["Computer"])
             computer_list_data = [
-                {"Computer": '<i class="bi bi-pc-display-horizontal"></i> ' + c}
+                {"Computer": '<i class="bi bi-pc-display-horizontal"></i> ' + escape_html(c)}
                 for c in dico[da]["computers"]
             ]
             computer_list_grid.setData(computer_list_data)
@@ -122,7 +122,7 @@ class dom_admin_on_non_dc(Control):
             )
             domain_list_grid.setheaders(["Domain"])
             domain_list_data = [
-                {"Domain": '<i class="bi bi-globe2"></i> ' + c} for c in domain_list
+                {"Domain": '<i class="bi bi-globe2"></i> ' + escape_html(c)} for c in domain_list
             ]
             domain_list_grid.setData(domain_list_data)
             domain_list_page.addComponent(domain_list_grid)

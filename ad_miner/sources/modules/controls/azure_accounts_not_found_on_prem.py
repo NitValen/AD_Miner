@@ -4,6 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.common_analysis import presence_of
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -46,7 +47,7 @@ class azure_accounts_not_found_on_prem(Control):
         for user in self.azure_accounts_not_found_on_prem:
             data.append(
                 {
-                    "Name": '<i class="bi bi-person-fill"></i> ' + user["Name"],
+                    "Name": '<i class="bi bi-person-fill"></i> ' + escape_html(user["Name"]),
                     "Synced to on premise": '<i class="bi bi-check-square"></i>',
                     "Synced account": '<i class="bi bi-question-lg"></i>',
                 }
