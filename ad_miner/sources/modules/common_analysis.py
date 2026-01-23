@@ -554,7 +554,10 @@ def generateADCSListPage(requests_results, arguments):
     page.render()
 
 
-tenant_id_name = {"F8CDEF31-A31E-4B4A-93E4-5F571E91255A": "Microsoft Entra"}
+tenant_id_name = {
+    "F8CDEF31-A31E-4B4A-93E4-5F571E91255A": "Microsoft Entra",
+    None: "Unknown",
+}
 
 
 def setTenantIDName(requests_results, arguments):
