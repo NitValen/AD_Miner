@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import MODULES_DIRECTORY, escape_html
+from ad_miner.sources.modules.utils import MODULES_DIRECTORY
 
 import json
 
@@ -54,21 +54,21 @@ class primaryGroupID_lower_than_1000(Control):
 
             tmp_data = {}
             if str(rid) not in known_RIDs:
-                tmp_data["domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(domain)
+                tmp_data["domain"] = '<i class="bi bi-globe2"></i> ' + domain
                 tmp_data["RID"] = str(rid)
                 tmp_data["name"] = (
-                    '<i class="bi bi-gem"></i> ' + escape_html(name) if is_da else escape_html(name)
+                    '<i class="bi bi-gem"></i> ' + name if is_da else name
                 )
                 tmp_data["reason"] = "Unknown RID"
                 data.append(tmp_data)
             elif name_without_domain not in known_RIDs[str(rid)]:
-                tmp_data["domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(domain)
+                tmp_data["domain"] = '<i class="bi bi-globe2"></i> ' + domain
                 tmp_data["RID"] = str(rid)
                 tmp_data["name"] = (
-                    '<i class="bi bi-gem"></i> ' + escape_html(name) if is_da else escape_html(name)
+                    '<i class="bi bi-gem"></i> ' + name if is_da else name
                 )
                 tmp_data["reason"] = (
-                    "Unexpected name, expected : " + escape_html(known_RIDs[str(rid)][0])
+                    "Unexpected name, expected : " + known_RIDs[str(rid)][0]
                 )
                 data.append(tmp_data)
 

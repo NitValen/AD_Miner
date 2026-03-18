@@ -5,7 +5,7 @@ from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.graph_class import Graph
 
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 from ad_miner.sources.modules.common_analysis import presence_of
 
 from urllib.parse import quote
@@ -59,8 +59,8 @@ class users_shadow_credentials(Control):  # TODO change the class name
         for d in data.values():
             sortClass = str(len(d["paths"])).zfill(6)
             tmp_grid_data = {
-                "domain": '<i class="bi bi-globe2"></i> ' + escape_html(d["domain"]),
-                "name": '<i class="bi bi-person-fill"></i> ' + escape_html(d["name"]),
+                "domain": '<i class="bi bi-globe2"></i> ' + d["domain"],
+                "name": '<i class="bi bi-person-fill"></i> ' + d["name"],
                 "target": grid_data_stringify(
                     {
                         "value": f"{len(d['paths'])} paths to {len(d['target'])} target{'s' if len(d['target'])>1 else ''}",

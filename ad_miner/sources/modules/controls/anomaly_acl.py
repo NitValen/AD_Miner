@@ -4,7 +4,7 @@ from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules import generic_formating, generic_computing
 
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 from ad_miner.sources.modules.common_analysis import (
     get_dico_admin_of_computer_id,
     createGraphPage,
@@ -178,7 +178,7 @@ class my_control_class_name(Control):
                     else:
                         icon = "bi-person-fill"
                         tmp_dict["targets"] = (
-                            '<i class="bi bi-person-fill"></i> ' + escape_html(name)
+                            '<i class="bi bi-person-fill"></i> ' + name
                         )
                     if name in self.dico_is_user_admin_on_computer:
                         count = len(self.users_admin_computer_list[name])
@@ -281,7 +281,7 @@ class my_control_class_name(Control):
                             self.requests_results,
                         )
 
-                tmp_dict["targets"] = f'<i class="bi {icon}"></i> ' + escape_html(name)
+                tmp_dict["targets"] = f'<i class="bi {icon}"></i> {name}'
                 formated_data_details.append(tmp_dict)
 
             page = Page(

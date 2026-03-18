@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.graph_class import Graph
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 from ad_miner.sources.modules.common_analysis import presence_of
 
 from urllib.parse import quote
@@ -57,7 +57,7 @@ class da_to_da(Control):
             headers.append(domain)
             graphDatas[domain] = {}
             pathLengthss.append(
-                {"FROM / TO": '<i class="bi bi-globe2"></i> ' + escape_html(domain), domain: "-"}
+                {"FROM / TO": '<i class="bi bi-globe2"></i> ' + domain, domain: "-"}
             )
         for path in paths:
             # headers and pathLengths share the same index and it is cheaper to use headers here
@@ -70,7 +70,7 @@ class da_to_da(Control):
                 graphDatas[unknown_domain] = {}
                 pathLengthss.append(
                     {
-                        "FROM / TO": '<i class="bi bi-globe2"></i> ' + escape_html(unknown_domain),
+                        "FROM / TO": '<i class="bi bi-globe2"></i> ' + unknown_domain,
                         unknown_domain: "-",
                     }
                 )

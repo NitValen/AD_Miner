@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import days_format, escape_html
+from ad_miner.sources.modules.utils import days_format
 from ad_miner.sources.modules.common_analysis import presence_of
 
 
@@ -49,7 +49,7 @@ class azure_last_passwd_change(Control):
                 self.azure_last_passwd_change_strange.append(user)
                 data.append(
                     {
-                        "Name": '<i class="bi bi-person-fill"></i> ' + escape_html(user["Name"]),
+                        "Name": '<i class="bi bi-person-fill"></i> ' + user["Name"],
                         "Last password set on premise": days_format(onprem),
                         "Last password set on Azure": days_format(onazure),
                         "Difference": days_format(diff),

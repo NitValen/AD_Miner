@@ -1,7 +1,7 @@
 import random
 import string
 
-from ad_miner.sources.modules.utils import HTML_DIRECTORY, escape_html
+from ad_miner.sources.modules.utils import HTML_DIRECTORY
 
 class Table:
     def __init__(
@@ -41,7 +41,7 @@ class Table:
         with open(
             self.template_base_path / (self.template + "_header.html"), "r"
         ) as header_f:
-            page_f.write(header_f.read() % (self.id, self.id, escape_html(self.title), self.id))
+            page_f.write(header_f.read() % (self.id, self.id, self.title, self.id))
 
         page_f.write('<thead class=" ' + self.class_css + ' ">\n<tr>\n')
 
@@ -51,7 +51,7 @@ class Table:
             line = row_header_f.read()
 
         for header in self.headers:
-            page_f.write(line % ("th", 'scope="col"', escape_html(header), "th"))
+            page_f.write(line % ("th", 'scope="col"', header, "th"))
 
         page_f.write("</tr>\n</thead>\n<tbody>\n")
 
@@ -60,11 +60,10 @@ class Table:
             page_f.write("<tr>\n")
 
             for index, col in enumerate(row):
-                escaped_col = escape_html(col)
                 if index == 0:
-                    page_f.write(line % ("th", 'scope="row"', escaped_col, "th"))
+                    page_f.write(line % ("th", 'scope="row"', col, "th"))
                 else:
-                    page_f.write(line % ("td", "", escaped_col, "td"))
+                    page_f.write(line % ("td", "", col, "td"))
             page_f.write("</tr>\n")
 
         page_f.write("</tbody>\n")

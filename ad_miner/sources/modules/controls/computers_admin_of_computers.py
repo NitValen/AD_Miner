@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 from ad_miner.sources.modules import generic_formating, generic_computing
 from ad_miner.sources.modules.common_analysis import (
     findAndCreatePathToDaFromComputersList,
@@ -67,7 +67,7 @@ class computers_admin_of_computers(Control):
 
                 tmp_line = {
                     "Computer Admin": '<i class="bi bi-pc-display"></i> '
-                    + escape_html(admin_computer),
+                    + admin_computer,
                     "Computers count": grid_data_stringify(
                         {
                             "value": f"{computers_admin_to_count[admin_computer]} computers",

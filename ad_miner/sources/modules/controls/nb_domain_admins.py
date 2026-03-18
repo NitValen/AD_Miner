@@ -5,7 +5,6 @@ from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
 from ad_miner.sources.modules.common_analysis import presence_of
-from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -49,8 +48,8 @@ class nb_domain_admins(Control):
 
         for da in self.users_nb_domain_admins:
             tmp_data = {}
-            tmp_data["domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(da["domain"])
-            tmp_data["name"] = '<i class="bi bi-gem"></i> ' + escape_html(da["name"])
+            tmp_data["domain"] = '<i class="bi bi-globe2"></i> ' + da["domain"]
+            tmp_data["name"] = '<i class="bi bi-gem"></i> ' + da["name"]
             tmp_data["domain admin"] = (
                 '<i class="bi bi-check-square-fill"></i><span style="display:none">True</span>'
                 if "Domain Admin" in da["admin type"]

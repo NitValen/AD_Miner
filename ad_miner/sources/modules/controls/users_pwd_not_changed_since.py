@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
-from ad_miner.sources.modules.utils import days_format, escape_html
+from ad_miner.sources.modules.utils import days_format
 from ad_miner.sources.modules.common_analysis import percentage_superior
 
 
@@ -69,11 +69,11 @@ class users_pwd_not_changed_since(Control):
             if dict["user"] in self.admin_list:
                 tmp_data["user"] = (
                     '<i class="bi bi-gem" title="This user is domain admin"></i> '
-                    + escape_html(tmp_data["user"])
+                    + tmp_data["user"]
                 )
             else:
                 tmp_data["user"] = (
-                    '<i class="bi bi-person-fill"></i> ' + escape_html(tmp_data["user"])
+                    '<i class="bi bi-person-fill"></i> ' + tmp_data["user"]
                 )
             tmp_data["Last password change"] = days_format(dict["days"])
             tmp_data["Account Creation Date"] = days_format(dict["accountCreationDate"])

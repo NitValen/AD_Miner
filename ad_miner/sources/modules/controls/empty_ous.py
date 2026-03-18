@@ -3,7 +3,6 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -37,7 +36,7 @@ class empty_ous(Control):  # TODO change the class name
 
         for d in self.empty_ous:
             d["Empty Organizational Unit"] = (
-                '<i class="bi bi-building"></i> ' + escape_html(d["Empty Organizational Unit"])
+                '<i class="bi bi-building"></i> ' + d["Empty Organizational Unit"]
             )
 
         grid.setheaders(headers)

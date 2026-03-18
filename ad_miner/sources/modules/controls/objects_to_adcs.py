@@ -5,7 +5,7 @@ from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.graph_class import Graph
 
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 from ad_miner.sources.modules.common_analysis import presence_of
 
 from urllib.parse import quote
@@ -71,9 +71,9 @@ class objects_to_adcs(Control):
         for key, paths in self.ADCS_path_sorted.items():
             tmp_data = {}
             tmp_data["Domain"] = (
-                '<i class="bi bi-globe2"></i> ' + escape_html(paths[0].nodes[-1].domain)
+                '<i class="bi bi-globe2"></i> ' + paths[0].nodes[-1].domain
             )
-            tmp_data["Name"] = '<i class="bi bi-server"></i> ' + escape_html(key)
+            tmp_data["Name"] = '<i class="bi bi-server"></i> ' + key
             nb_path_to_adcs = len(paths)
             self.total_paths += nb_path_to_adcs
             sortClass = str(nb_path_to_adcs).zfill(6)
