@@ -3,7 +3,6 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.common_analysis import presence_of
-from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -40,8 +39,8 @@ class guest_accounts(Control):
 
         data = []
         for account_name, domain, is_enabled in guest_list:
-            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + escape_html(domain)}
-            tmp_data["name"] = '<i class="bi bi-person-fill"></i> ' + escape_html(account_name)
+            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + domain}
+            tmp_data["name"] = '<i class="bi bi-person-fill"></i> ' + account_name
             tmp_data["enabled"] = (
                 '<i class="bi bi-unlock-fill text-danger"></i> Enabled'
                 if is_enabled

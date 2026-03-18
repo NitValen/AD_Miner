@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
-from ad_miner.sources.modules.utils import days_format, escape_html
+from ad_miner.sources.modules.utils import days_format
 from ad_miner.sources.modules.common_analysis import percentage_superior
 
 
@@ -42,10 +42,10 @@ class never_expires(Control):
             if user["name"] in self.admin_list:
                 user["name"] = (
                     '<i class="bi bi-gem" title="This user is domain admin"></i> '
-                    + escape_html(user["name"])
+                    + user["name"]
                 )
             else:
-                user["name"] = '<i class="bi bi-person-fill"></i> ' + escape_html(user["name"])
+                user["name"] = '<i class="bi bi-person-fill"></i> ' + user["name"]
         page = Page(
             self.arguments.cache_prefix,
             "never_expires",
@@ -66,7 +66,7 @@ class never_expires(Control):
         data = []
         for dict in self.users_password_never_expires:
             tmp_data = {
-                "domain": '<i class="bi bi-globe2"></i> ' + escape_html(dict["domain"]),
+                "domain": '<i class="bi bi-globe2"></i> ' + dict["domain"],
                 "name": dict["name"],
             }
             tmp_data["Last login"] = days_format(dict["LastLogin"])

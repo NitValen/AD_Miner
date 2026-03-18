@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import days_format, escape_html
+from ad_miner.sources.modules.utils import days_format
 from ad_miner.sources.modules.common_analysis import manageComputersOs, presence_of
 
 
@@ -41,7 +41,7 @@ class computers_os_obsolete(Control):
         for computer in self.list_computers_os_obsolete:
             if computer["Last logon in days"] < 90:  # remove ghost computers
                 computer["Domain"] = (
-                    '<i class="bi bi-globe2"></i> ' + escape_html(computer["Domain"])
+                    '<i class="bi bi-globe2"></i> ' + computer["Domain"]
                 )
                 computer["Last logon"] = days_format(computer["Last logon in days"])
                 if (
@@ -50,10 +50,10 @@ class computers_os_obsolete(Control):
                     or "2012" in computer["Operating system"]
                 ):  # Add icons whether it's a computer or a server
                     computer["Operating system"] = (
-                        '<i class="bi bi-server"></i> ' + escape_html(computer["Operating system"])
+                        '<i class="bi bi-server"></i> ' + computer["Operating system"]
                     )
                     computer["name"] = (
-                        '<i class="bi bi-server"></i> ' + escape_html(computer["name"])
+                        '<i class="bi bi-server"></i> ' + computer["name"]
                     )
                 if (
                     "2000" in computer["Operating system"]
@@ -62,10 +62,10 @@ class computers_os_obsolete(Control):
                 ):
                     computer["Operating system"] = (
                         '<i class="bi bi-pc-display"></i> '
-                        + escape_html(computer["Operating system"])
+                        + computer["Operating system"]
                     )
                     computer["name"] = (
-                        '<i class="bi bi-pc-display"></i> ' + escape_html(computer["name"])
+                        '<i class="bi bi-pc-display"></i> ' + computer["name"]
                     )
 
                 cleaned_data.append(computer)

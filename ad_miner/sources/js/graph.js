@@ -1,13 +1,6 @@
 // This object is used by vis.js to retrieve node icon
 var icon_group_options = {};
 
-// HTML escape function to prevent XSS
-function escapeHtmlGraph(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
 var existing_attribute_strings = []
 
 for (var i = 0; i < window.data_nodes.length; i++) {
@@ -1762,8 +1755,6 @@ function bindRightClick() {
                 <a class='list-group-item list-group-item-action disabled'>No Action</a>
                 </div>`;
       } else {
-        // Sanitize lastSelectedNode by using JSON.stringify to prevent injection
-        var safeNodeId = JSON.stringify(lastSelectedNode);
         if (
           allNodescopy[lastSelectedNode].clusterType == 'complete' ||
           allNodescopy[lastSelectedNode].clusterType == 'partial' ||
@@ -1771,14 +1762,22 @@ function bindRightClick() {
         ) {
           menu.innerHTML =
             `<div class="list-group">
-                    <a class='list-group-item list-group-item-action' onclick='openCluster(${safeNodeId})'>Open Cluster</a>
+                    <a class='list-group-item list-group-item-action' onclick=openCluster(` +
+            lastSelectedNode +
+            `)>Open Cluster</a>
                     </div>`;
         } else {
           menu.innerHTML =
             `<div class="list-group">
-                    <a class='list-group-item list-group-item-action' onclick='closeClusterComplete(${safeNodeId})'>Cluster</a>
-                    <a class='list-group-item list-group-item-action' onclick='closeClusterPartial(${safeNodeId})'>Cluster direct children only</a>
-                    <a class='list-group-item list-group-item-action' onclick='closeClusterForward(${safeNodeId})'>Cluster direct forward children</a>
+                    <a class='list-group-item list-group-item-action' onclick=closeClusterComplete(` +
+            lastSelectedNode +
+            `)>Cluster</a>
+                    <a class='list-group-item list-group-item-action' onclick=closeClusterPartial(` +
+            lastSelectedNode +
+            `)>Cluster direct children only</a>
+                    <a class='list-group-item list-group-item-action' onclick=closeClusterForward(` +
+            lastSelectedNode +
+            `)>Cluster direct forward children</a>
                     </div>`;
         }
       }
@@ -1810,12 +1809,13 @@ function bindRightClick() {
 }
 
 function printRecurseWarning(nodeLabel) {
-  var escapedLabel = escapeHtmlGraph(nodeLabel);
   document.getElementById('hooker').innerHTML =
     `<div class="alert alert-dismissible alert-warning">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     <h4 class="alert-heading">Warning!</h4>
-    <p class="mb-0">The configuration of the graph doesn't allow to cluster ${escapedLabel}</p>
+    <p class="mb-0">The configuration of the graph doesn't allow to cluster ` +
+    nodeLabel +
+    ` </p>
     </div>`;
 }
 

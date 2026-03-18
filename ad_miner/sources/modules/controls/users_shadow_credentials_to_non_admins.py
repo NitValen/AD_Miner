@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.graph_class import Graph
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 
 from ad_miner.sources.modules.common_analysis import presence_of
 
@@ -53,9 +53,9 @@ class TestControle1(Control):
             sortClass = str(nb_paths).zfill(6)
             grid_data.append(
                 {
-                    "domain": '<i class="bi bi-globe2"></i> ' + escape_html(data[target]["domain"]),
+                    "domain": '<i class="bi bi-globe2"></i> ' + data[target]["domain"],
                     "target": '<i class="bi bi-bullseye"></i> '
-                    + escape_html(data[target]["target"]),
+                    + data[target]["target"],
                     "paths": grid_data_stringify(
                         {
                             "value": f"{nb_paths} paths to target",

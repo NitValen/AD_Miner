@@ -1,5 +1,5 @@
 from ad_miner.sources.modules import logger
-from ad_miner.sources.modules.utils import CONFIG_MAP, days_format, escape_html
+from ad_miner.sources.modules.utils import CONFIG_MAP, days_format
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.graph_class import Graph
 from ad_miner.sources.modules.path_neo4j import Path
@@ -517,16 +517,16 @@ def genNumberOfDCPage(requests_results, arguments):
 
     for d in computers_nb_domain_controllers:
         temp_data = {}
-        temp_data["domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(d["domain"])
+        temp_data["domain"] = '<i class="bi bi-globe2"></i> ' + d["domain"]
         if d["ghost"]:
             temp_data["name"] = (
                 '<svg height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ff595e" d="M40.1 467.1l-11.2 9c-3.2 2.5-7.1 3.9-11.1 3.9C8 480 0 472 0 462.2V192C0 86 86 0 192 0S384 86 384 192V462.2c0 9.8-8 17.8-17.8 17.8c-4 0-7.9-1.4-11.1-3.9l-11.2-9c-13.4-10.7-32.8-9-44.1 3.9L269.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6l-26.6-30.5c-12.7-14.6-35.4-14.6-48.2 0L141.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6L84.2 471c-11.3-12.9-30.7-14.6-44.1-3.9zM160 192a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg> '
-                + escape_html(d["name"])
+                + d["name"]
             )
         else:
-            temp_data["name"] = '<i class="bi bi-server"></i> ' + escape_html(d["name"])
+            temp_data["name"] = '<i class="bi bi-server"></i> ' + d["name"]
         if "WINDOWS" in d["os"].upper():
-            temp_data["os"] = '<i class="bi bi-windows"></i> ' + escape_html(d["os"])
+            temp_data["os"] = '<i class="bi bi-windows"></i> ' + d["os"]
         temp_data["last logon"] = days_format(d["lastLogon"])
         data.append(temp_data)
     grid.setData(data)
@@ -561,15 +561,15 @@ def genUsersListPage(requests_results, arguments):
     data = []
     for user in users:
         tmp_dict = {}
-        tmp_dict["domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(user["domain"])
+        tmp_dict["domain"] = '<i class="bi bi-globe2"></i> ' + user["domain"]
         # Add admin icon
         if user["name"] in admin_list:
             tmp_dict["name"] = (
                 '<i class="bi bi-gem" title="This user is domain admin"></i> '
-                + escape_html(user["name"])
+                + user["name"]
             )
         else:
-            tmp_dict["name"] = '<i class="bi bi-person-fill"></i> ' + escape_html(user["name"])
+            tmp_dict["name"] = '<i class="bi bi-person-fill"></i> ' + user["name"]
         # Add calendar icon
         logon = -1
         if user.get("logon"):
@@ -601,12 +601,12 @@ def genAllGroupsPage(requests_results, arguments):
     grid.setheaders(["domain", "name"])
     group_extract = [
         {
-            "domain": '<i class="bi bi-globe2"></i> ' + escape_html(groups[k]["domain"]),
+            "domain": '<i class="bi bi-globe2"></i> ' + groups[k]["domain"],
             "name": (
                 '<i class="bi bi-gem" title="This group is domain admin"></i> '
-                + escape_html(groups[k]["name"])
+                + groups[k]["name"]
                 if groups[k].get("da")
-                else '<i class="bi bi-people-fill"></i> ' + escape_html(groups[k]["name"])
+                else '<i class="bi bi-people-fill"></i> ' + groups[k]["name"]
             ),
         }
         for k in range(len(groups))
@@ -641,13 +641,13 @@ def generateComputersListPage(requests_results, arguments):
         if computer["ghost"]:
             name = (
                 '<svg height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M40.1 467.1l-11.2 9c-3.2 2.5-7.1 3.9-11.1 3.9C8 480 0 472 0 462.2V192C0 86 86 0 192 0S384 86 384 192V462.2c0 9.8-8 17.8-17.8 17.8c-4 0-7.9-1.4-11.1-3.9l-11.2-9c-13.4-10.7-32.8-9-44.1 3.9L269.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6l-26.6-30.5c-12.7-14.6-35.4-14.6-48.2 0L141.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6L84.2 471c-11.3-12.9-30.7-14.6-44.1-3.9zM160 192a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg> '
-                + escape_html(computer["name"])
+                + computer["name"]
             )
         else:
-            name = '<i class="bi bi-pc-display"></i> ' + escape_html(computer["name"])
+            name = '<i class="bi bi-pc-display"></i> ' + computer["name"]
         # OS
         if computer["os"]:
-            os = escape_html(computer["os"])
+            os = computer["os"]
             if "windows" in computer["os"].lower():
                 os = '<i class="bi bi-windows"></i> ' + os
             elif "mac" in computer["os"].lower():
@@ -657,7 +657,7 @@ def generateComputersListPage(requests_results, arguments):
         else:
             os = "Unknown"
         formated_computer = {
-            "domain": '<i class="bi bi-globe2"></i> ' + escape_html(computer["domain"]),
+            "domain": '<i class="bi bi-globe2"></i> ' + computer["domain"],
             "name": name,
             "operating system": os,
         }
@@ -689,8 +689,8 @@ def generateADCSListPage(requests_results, arguments):
     grid = Grid("ADCS servers")
     grid.setheaders(["domain", "name"])
     for adcs in computers_adcs:
-        adcs["domain"] = '<i class="bi bi-globe2"></i> ' + escape_html(adcs["domain"])
-        adcs["name"] = '<i class="bi bi-server"></i> ' + escape_html(adcs["name"])
+        adcs["domain"] = '<i class="bi bi-globe2"></i> ' + adcs["domain"]
+        adcs["name"] = '<i class="bi bi-server"></i> ' + adcs["name"]
     grid.setData(computers_adcs)
     page.addComponent(grid)
     page.render()
@@ -734,8 +734,8 @@ def genAzureTenants(requests_results, arguments):
         data.append(
             {
                 "Tenant ID": '<i class="bi bi-file-earmark-person"></i> '
-                + escape_html(tenant["ID"]),
-                "Tenant Name": '<i class="bi bi-globe2"></i> ' + escape_html(tenant["Name"]),
+                + tenant["ID"],
+                "Tenant Name": '<i class="bi bi-globe2"></i> ' + tenant["Name"],
             }
         )
 
@@ -774,15 +774,15 @@ def genAzureUsers(requests_results, arguments):
         tenant_name = tenant_id_name.get(tenant_id, tenant_id)
         data.append(
             {
-                "Tenant Name": '<i class="bi bi-globe2"></i> ' + escape_html(tenant_name),
-                "Name": '<i class="bi bi-person-fill"></i> ' + escape_html(user["Name"]),
+                "Tenant Name": '<i class="bi bi-globe2"></i> ' + tenant_name,
+                "Name": '<i class="bi bi-person-fill"></i> ' + user["Name"],
                 "Synced on premise": (
                     '<i class="bi bi-check-square"></i>'
                     if user["onpremisesynced"] == True
                     else '<i class="bi bi-square"></i>'
                 ),
                 "On premise SID": (
-                    escape_html(user["SID"])
+                    user["SID"]
                     if user["onpremisesynced"] == True and user["SID"] != None
                     else "-"
                 ),
@@ -824,8 +824,8 @@ def genAzureAdmin(requests_results, arguments):
         tenant_name = tenant_id_name.get(tenant_id, tenant_id)
         data.append(
             {
-                "Tenant Name": '<i class="bi bi-globe2"></i> ' + escape_html(tenant_name),
-                "Name": '<i class="bi bi-gem"></i> ' + escape_html(admin["Name"]),
+                "Tenant Name": '<i class="bi bi-globe2"></i> ' + tenant_name,
+                "Name": '<i class="bi bi-gem"></i> ' + admin["Name"],
             }
         )
 
@@ -864,9 +864,9 @@ def genAzureGroups(requests_results, arguments):
         tenant_name = tenant_id_name.get(tenant_id, tenant_id)
         data.append(
             {
-                "Tenant Name": '<i class="bi bi-globe2"></i> ' + escape_html(tenant_name),
-                "Name": '<i class="bi bi-people-fill"></i> ' + escape_html(group["Name"]),
-                "Description": escape_html(group["Description"]),
+                "Tenant Name": '<i class="bi bi-globe2"></i> ' + tenant_name,
+                "Name": '<i class="bi bi-people-fill"></i> ' + group["Name"],
+                "Description": group["Description"],
             }
         )
 
@@ -905,13 +905,13 @@ def genAzureVM(requests_results, arguments):
     for dict in azure_vm:
         tenant_id = dict.get("Tenant ID")
         tenant_name = tenant_id_name.get(tenant_id, tenant_id)
-        tmp_data = {"Tenant Name": escape_html(tenant_name)}
+        tmp_data = {"Tenant Name": tenant_name}
 
-        tmp_data["Name"] = escape_html(dict["Name"])
+        tmp_data["Name"] = dict["Name"]
 
         # os
         if dict.get("os"):
-            os = escape_html(dict["os"])
+            os = dict["os"]
             if "windows" in dict["os"].lower():
                 os = '<i class="bi bi-windows"></i> ' + os
             elif "mac" in dict["os"].lower():
@@ -958,13 +958,13 @@ def genAzureDevices(requests_results, arguments):
         tenant_id = dict.get("Tenant ID")
         tenant_name = tenant_id_name.get(tenant_id, tenant_id)
 
-        tmp_data = {"Tenant Name": escape_html(tenant_name)}
+        tmp_data = {"Tenant Name": tenant_name}
 
-        tmp_data["Name"] = escape_html(dict["Name"])
+        tmp_data["Name"] = dict["Name"]
 
         # os
         if dict.get("os"):
-            os = escape_html(dict["os"])
+            os = dict["os"]
             if "windows" in dict["os"].lower():
                 os = '<i class="bi bi-windows"></i> ' + os
             elif (
@@ -1023,15 +1023,15 @@ def genAzureApps(requests_results, arguments):
         if tenant_id == "F8CDEF31-A31E-4B4A-93E4-5F571E91255A":
             data_microsft.append(
                 {
-                    "Tenant ID": '<i class="bi bi-globe2"></i> ' + escape_html(tenant_name),
-                    "Name": '<i class="bi bi-window-sidebar"></i> ' + escape_html(app["Name"]),
+                    "Tenant ID": '<i class="bi bi-globe2"></i> ' + tenant_name,
+                    "Name": '<i class="bi bi-window-sidebar"></i> ' + app["Name"],
                 }
             )
         else:
             data.append(
                 {
-                    "Tenant ID": '<i class="bi bi-globe2"></i> ' + escape_html(tenant_name),
-                    "Name": '<i class="bi bi-window-sidebar"></i> ' + escape_html(app["Name"]),
+                    "Tenant ID": '<i class="bi bi-globe2"></i> ' + tenant_name,
+                    "Name": '<i class="bi bi-window-sidebar"></i> ' + app["Name"],
                 }
             )
     data += data_microsft

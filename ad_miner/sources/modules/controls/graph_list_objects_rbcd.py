@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules import logger
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
+from ad_miner.sources.modules.utils import grid_data_stringify
 from ad_miner.sources.modules.common_analysis import presence_of, createGraphPage
 
 from urllib.parse import quote
@@ -161,9 +161,9 @@ class graph_list_objects_rbcd(Control):  # TODO change the class name
                 tmp_data = {}
                 tmp_data["Domain"] = (
                     '<i class="bi bi-globe2"></i> '
-                    + escape_html(self.rbcd_graphs[object_name]["domain"])
+                    + self.rbcd_graphs[object_name]["domain"]
                 )
-                tmp_data["Name"] = '<i class="bi bi-person-fill"></i> ' + escape_html(object_name)
+                tmp_data["Name"] = '<i class="bi bi-person-fill"></i> ' + object_name
                 sortClass1 = str(len(self.rbcd_graphs[object_name]["paths"])).zfill(6)
                 tmp_data["Paths to targets"] = grid_data_stringify(
                     {

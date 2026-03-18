@@ -3,7 +3,6 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.common_analysis import presence_of
-from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -56,8 +55,8 @@ class privileged_accounts_outside_Protected_Users(Control):
         for dic in self.users_nb_domain_admins:
             if "Protected Users" in dic["admin type"]:
                 continue
-            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + escape_html(dic["domain"])}
-            tmp_data["name"] = '<i class="bi bi-gem"></i> ' + escape_html(dic["name"])
+            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + dic["domain"]}
+            tmp_data["name"] = '<i class="bi bi-gem"></i> ' + dic["name"]
             tmp_data["domain admin"] = (
                 '<i class="bi bi-check-square-fill"></i><span style="display:none">True</span>'
                 if "Domain Admin" in dic["admin type"]

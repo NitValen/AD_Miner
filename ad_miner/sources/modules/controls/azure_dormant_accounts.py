@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
-from ad_miner.sources.modules.utils import days_format, escape_html
+from ad_miner.sources.modules.utils import days_format
 from ad_miner.sources.modules.common_analysis import presence_of
 
 
@@ -47,7 +47,7 @@ class azure_dormant_accounts(Control):
                 self.azure_dormant_accounts_90_days.append(user)
                 data.append(
                     {
-                        "Name": '<i class="bi bi-person-fill"></i> ' + escape_html(user["Name"]),
+                        "Name": '<i class="bi bi-person-fill"></i> ' + user["Name"],
                         "Last logon": days_format(user["lastlogon"]),
                         "Creation date": days_format(user["whencreated"]),
                     }
