@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 
-from ad_miner.sources.modules.utils import days_format
+from ad_miner.sources.modules.utils import days_format, escape_html
 
 
 @register_control
@@ -66,11 +66,11 @@ class computers_without_laps(Control):
             # Exclude ghost computers (last logon > 90 days)
             if computer["lastLogon"] < 90:
                 tmp_dict["domain"] = (
-                    '<i class="bi bi-globe2"></i> ' + computer["domain"]
+                    '<i class="bi bi-globe2"></i> ' + escape_html(computer["domain"])
                 )
                 tmp_dict["Last logon"] = days_format(computer["lastLogon"])
                 tmp_dict["name"] = (
-                    '<i class="bi bi-pc-display"></i> ' + computer["name"]
+                    '<i class="bi bi-pc-display"></i> ' + escape_html(computer["name"])
                 )
                 if computer["LAPS"] == "false":
                     tmp_dict["LAPS"] = (

@@ -4,6 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.common_analysis import presence_of
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -40,7 +41,7 @@ class azure_admin_on_prem(Control):
 
         data = []
         for user in self.azure_admin_on_prem:
-            data.append({"Name": '<i class="bi bi-gem"></i> ' + user["Name"]})
+            data.append({"Name": '<i class="bi bi-gem"></i> ' + escape_html(user["Name"])})
 
         grid.setheaders(["Name"])
 

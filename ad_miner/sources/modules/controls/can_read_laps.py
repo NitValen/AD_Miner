@@ -3,6 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -39,8 +40,8 @@ class can_read_laps(Control):
         grid.setheaders(["domain", "name"])
         self.can_read_laps_parsed = [
             {
-                "domain": '<i class="bi bi-globe2"></i> ' + user["domain"],
-                "name": '<i class="bi bi-person-fill"></i> ' + user["name"],
+                "domain": '<i class="bi bi-globe2"></i> ' + escape_html(user["domain"]),
+                "name": '<i class="bi bi-person-fill"></i> ' + escape_html(user["name"]),
             }
             for user in self.can_read_laps
             if user["domain"] is not None and user["name"] is not None

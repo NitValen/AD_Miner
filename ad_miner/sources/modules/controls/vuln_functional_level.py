@@ -3,6 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control

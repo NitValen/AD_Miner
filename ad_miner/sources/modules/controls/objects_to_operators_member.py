@@ -4,7 +4,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.graph_class import Graph
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import presence_of
 
 from urllib.parse import quote
@@ -49,8 +49,8 @@ class objects_to_operators_member(Control):
                     data[path.nodes[0].name]["target"].append(path.nodes[-1].name)
             except KeyError:
                 data[path.nodes[0].name] = {
-                    "domain": '<i class="bi bi-globe2"></i> ' + path.nodes[-1].domain,
-                    "name": '<i class="bi bi-people-fill"></i> ' + path.nodes[0].name,
+                    "domain": '<i class="bi bi-globe2"></i> ' + escape_html(path.nodes[-1].domain),
+                    "name": '<i class="bi bi-people-fill"></i> ' + escape_html(path.nodes[0].name),
                     "link": quote(str(path.nodes[0].name)),
                     "target": [path.nodes[-1].name],
                     "paths": [path],
@@ -63,8 +63,8 @@ class objects_to_operators_member(Control):
                 KeyError
             ):  # Really **should not** happen, but to prevent crash in case of corrupted cache/db
                 data[path.nodes[-1].name] = {
-                    "domain": '<i class="bi bi-globe2"></i> ' + path.nodes[-1].domain,
-                    "name": '<i class="bi bi-people-fill"></i> ' + path.nodes[-1].name,
+                    "domain": '<i class="bi bi-globe2"></i> ' + escape_html(path.nodes[-1].domain),
+                    "name": '<i class="bi bi-people-fill"></i> ' + escape_html(path.nodes[-1].name),
                     "link": quote(str(path.nodes[-1].name)),
                     "target": [""],
                     "paths": [path],

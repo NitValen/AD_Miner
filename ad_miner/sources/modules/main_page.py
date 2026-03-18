@@ -8,7 +8,7 @@ from random import randint
 
 from ad_miner.sources.modules import common_analysis
 from ad_miner.sources.modules.smolcard_class import SmolCard
-from ad_miner.sources.modules.utils import TEMPLATES_DIRECTORY
+from ad_miner.sources.modules.utils import TEMPLATES_DIRECTORY, escape_html
 
 
 def americanStyle(n: int) -> str:
@@ -562,14 +562,16 @@ def render(
                 ] = ""
                 red_status = f"""<i class='{global_risk_controls[risk_control]["i_class"]}' style='color: rgb({global_risk_controls[risk_control]["colors"]}); margin-right: 3px;'></i> {risk_control.replace("_", " ").capitalize()}"""
                 for issue in data[category_repartition][f"{risk_control}_list"]:
-                    custom_title = dico_name_description[issue].replace("$", "")
+                    custom_title = escape_html(dico_name_description[issue].replace("$", ""))
+                    card_title = escape_html(dico_name_title[issue])
+                    escaped_red_status = escape_html(red_status)
                     data[category_repartition][
                         global_risk_controls[risk_control]["panel_key"]
                     ] += f"""
                         <a href="{issue}.html">
-                            <div class="card threat-card" custom-title="{custom_title}" custom-status="{red_status}">
+                            <div class="card threat-card" custom-title="{custom_title}" custom-status="{escaped_red_status}">
                                 <div class="card-body">
-                                    <h6 class="card-title">{dico_name_title[issue]}</h6>
+                                    <h6 class="card-title">{card_title}</h6>
                                 </div>
                                 <span class="position-absolute top-0 start-100 translate-middle p-2 border border-light rounded-circle"
                                 style="background-color: rgb({global_risk_controls[risk_control]["colors"]});">

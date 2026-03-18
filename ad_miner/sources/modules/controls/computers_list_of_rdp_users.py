@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import percentage_superior
 
 from urllib.parse import quote
@@ -57,7 +57,7 @@ class computers_list_of_rdp_users(Control):
         for key in self.users_rdp_access_2:
             sortClass = str(len(self.users_rdp_access_2[key])).zfill(6)
             d = {
-                "Computers": '<i class="bi bi-pc-display"></i> ' + key,
+                "Computers": '<i class="bi bi-pc-display"></i> ' + escape_html(key),
                 "Users": grid_data_stringify(
                     {
                         "value": f"{len(self.users_rdp_access_2[key])} Users <p style='visibility:hidden;'>{self.users_rdp_access_2[key]}</p>",

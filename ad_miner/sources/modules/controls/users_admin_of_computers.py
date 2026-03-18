@@ -8,7 +8,7 @@ from ad_miner.sources.modules.node_neo4j import Node
 from ad_miner.sources.modules.path_neo4j import Path
 from ad_miner.sources.modules import generic_computing
 
-from ad_miner.sources.modules.utils import grid_data_stringify
+from ad_miner.sources.modules.utils import grid_data_stringify, escape_html
 from ad_miner.sources.modules.common_analysis import (
     findAndCreatePathToDaFromUsersList,
     hasPathToDA,
@@ -306,7 +306,7 @@ class users_admin_of_computers(Control):
                         headers[
                             0
                         ]: '<i class="bi bi-gem" title="This user is domain admin"></i> '
-                        + dict[headers[0]],
+                        + escape_html(dict[headers[0]]),
                         headers[1]: dict[headers[1]],
                         headers[2]: dict[headers[2]],
                         headers[3]: data_header_computer,
@@ -318,7 +318,7 @@ class users_admin_of_computers(Control):
                 formated_data.append(
                     {
                         headers[0]: '<i class="bi bi-person-fill"></i> '
-                        + dict[headers[0]],
+                        + escape_html(dict[headers[0]]),
                         headers[1]: dict[headers[1]],
                         headers[2]: dict[headers[2]],
                         headers[3]: data_header_computer,

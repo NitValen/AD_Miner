@@ -3,7 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
-from ad_miner.sources.modules.utils import days_format
+from ad_miner.sources.modules.utils import days_format, escape_html
 from ad_miner.sources.modules.common_analysis import percentage_superior
 
 
@@ -50,15 +50,15 @@ class dormants_accounts(Control):
 
         data = []
         for dict in self.users_dormant_accounts:
-            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + dict["domain"]}
+            tmp_data = {"domain": '<i class="bi bi-globe2"></i> ' + escape_html(dict["domain"])}
 
             tmp_data["name"] = (
                 (
                     '<i class="bi bi-gem" title="This user is domain admin"></i> '
-                    + dict["name"]
+                    + escape_html(dict["name"])
                 )
                 if dict["name"] in self.admin_list
-                else '<i class="bi bi-person-fill"></i> ' + dict["name"]
+                else '<i class="bi bi-person-fill"></i> ' + escape_html(dict["name"])
             )
 
             tmp_data["last logon"] = days_format(dict["days"])

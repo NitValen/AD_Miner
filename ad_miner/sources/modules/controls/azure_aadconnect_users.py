@@ -3,6 +3,7 @@ from ad_miner.sources.modules.controls import register_control
 from ad_miner.sources.modules.page_class import Page
 from ad_miner.sources.modules.grid_class import Grid
 from ad_miner.sources.modules.common_analysis import presence_of
+from ad_miner.sources.modules.utils import escape_html
 
 
 @register_control
@@ -40,8 +41,8 @@ class azure_aadconnect_users(Control):
             data.append(
                 {
                     "Tenant ID": '<i class="bi bi-file-earmark-person"></i> '
-                    + f'{user["Tenant ID"] if user["Tenant ID"] != None else "-"}',
-                    "Name": '<i class="bi bi-people-fill"></i> ' + user["Name"],
+                    + escape_html(f'{user["Tenant ID"] if user["Tenant ID"] != None else "-"}'),
+                    "Name": '<i class="bi bi-people-fill"></i> ' + escape_html(user["Name"]),
                     "Session": user["Session"] if user["Session"] != None else "-",
                 }
             )
