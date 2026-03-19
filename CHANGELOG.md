@@ -1,3 +1,23 @@
+# [1.9.0](https://github.com/AD-Security/AD_Miner/compare/v1.8.1...v1.9.0) (2026-03-18)
+
+
+### Bug Fixes
+
+* AZBase objects without tenantid attribute crashes AD Miner ([#213](https://github.com/AD-Security/AD_Miner/issues/213)) ([e0b9953](https://github.com/AD-Security/AD_Miner/commit/e0b995366f947ac91637130f35aa418697136106))
+* key error whith user admin on servers ([6993e09](https://github.com/AD-Security/AD_Miner/commit/6993e09cffea1c92960a4fd4ca78608567424539))
+* member*0.. requests syntax ([a826e56](https://github.com/AD-Security/AD_Miner/commit/a826e56c629b0bf86744c8d6e60f1282ce1b9d10))
+
+
+### Features
+
+* 2026 01 update controls ([560cfa6](https://github.com/AD-Security/AD_Miner/commit/560cfa6d451e39e389d62810e039878ba0a84d27))
+* add LDAP signing / channel binding control ([8f31a6a](https://github.com/AD-Security/AD_Miner/commit/8f31a6ac7c232f63e8d4575cbcdb8f603cf78858))
+* add SMB signing control ([de2c7f6](https://github.com/AD-Security/AD_Miner/commit/de2c7f628e2cacd52a8fa24de72c50ee2d18f211))
+* update 01 2026 update core modules ([4430f96](https://github.com/AD-Security/AD_Miner/commit/4430f969b0dcc42f7d35f87b62c475747005d496))
+* update requests.json ([7ab31a7](https://github.com/AD-Security/AD_Miner/commit/7ab31a77345fcb07fb087bb7aadfeb68a701391f))
+
+
+
 ## [1.8.1](https://github.com/AD-Security/AD_Miner/compare/v1.8.0...v1.8.1) (2025-03-03)
 
 
@@ -48,21 +68,6 @@
 
 * better requests and anomaly_acl bug ([ebd6749](https://github.com/AD-Security/AD_Miner/commit/ebd674917b7496a035779148921c104a0e649f23))
 * only first letter was used to generate acl anomaly name label instances ([9089968](https://github.com/AD-Security/AD_Miner/commit/908996843a77672d8689c7ebf1efec87b2888ecb))
-
-
-
-# [1.6.0](https://github.com/AD-Security/AD_Miner/compare/v1.5.2...v1.6.0) (2024-09-10)
-
-
-### Bug Fixes
-
-* add missing requests in config.json ([#168](https://github.com/AD-Security/AD_Miner/issues/168)) ([5afe7db](https://github.com/AD-Security/AD_Miner/commit/5afe7db6f633a121b0d2f9f53c59bac04018dfe9))
-* fix crash when a computer is member of DA ([9416e78](https://github.com/AD-Security/AD_Miner/commit/9416e78093990102391d17231b16dc01b66c0efe))
-
-
-### Features
-
-* add cache files warning (chores) ([1ced00e](https://github.com/AD-Security/AD_Miner/commit/1ced00ec8a8d64ef310502acf9c05acb33c3faef))
 
 
 
